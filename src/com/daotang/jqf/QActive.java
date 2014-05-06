@@ -51,19 +51,18 @@ public class QActive extends QHsm implements Runnable {
     }
 
     public boolean recall() {
-        boolean result = mDeferQueue.size() > 0;
 
         mQueueLock.lock();
 
+        boolean result = mDeferQueue.size() > 0;
+
         while (mDeferQueue.size() > 0) {
             mEventQueue.push(mDeferQueue.poll());
+            QF.instance().execute(this);
         }
 
         mQueueLock.unlock();
 
-        if (result) {
-            QF.instance().execute(this);
-        }
         return result;
     }
 
@@ -83,10 +82,11 @@ public class QActive extends QHsm implements Runnable {
 
     @Override
     public void run() {
-        QEvent e = null;
 
         synchronized(this) {
-            while ((e = getEvent()) != null) {
+            QEvent e = getEvent();
+
+            if (e != null) {
                 dispatch(e);
             }
         }
