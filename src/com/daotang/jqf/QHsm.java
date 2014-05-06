@@ -1,3 +1,13 @@
+/**
+ * Copyright (c) 2014, Wanqiang Xia. All rights reserved.
+ *
+ * This program is open source software: you can redistribute it and/or
+ * modify it under the terms of the BSD 2-Clause license.
+ *
+ * This program is a java implementation of QP framework. You can visit QP
+ * website (http://www.state-machine.com) for more information
+ */
+
 package com.daotang.jqf;
 
 import java.util.LinkedList;
